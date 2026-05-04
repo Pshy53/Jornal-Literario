@@ -1,0 +1,1218 @@
+<index class="html"></index>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jornal Literário - Invenção e Memória | Lygia Fagundes Telles</title>
+    <style>
+        :root {
+            --jornal-bg: #f4f1ea;
+            --texto-principal: #1a1a1a;
+            --borda: #8c8c8c;
+            --destaque: #8b0000;
+            --link: #1a3a5c;
+            --cabecalho-border: #2c2c2c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.7;
+            color: var(--texto-principal);
+            background-color: #e8e4d8;
+            background-image: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 50px,
+                rgba(0,0,0,0.02) 50px,
+                rgba(0,0,0,0.02) 51px
+            );
+        }
+
+        .jornal {
+            max-width: 1100px;
+            margin: 20px auto;
+            background: var(--jornal-bg);
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3), 0 0 0 1px rgba(0,0,0,0.1);
+            border: 1px solid #999;
+            position: relative;
+        }
+
+        .jornal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(139,90,43,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(139,90,43,0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .cabecalho-jornal {
+            border-bottom: 4px double var(--cabecalho-border);
+            padding: 20px 30px 15px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(to bottom, #faf8f2 0%, #f4f1ea 100%);
+        }
+
+        .cabecalho-topo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #555;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .data-edicao, .numero-edicao {
+            border: 1px solid #999;
+            padding: 3px 12px;
+            background: #fff;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .nome-jornal {
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
+            font-family: 'Times New Roman', 'Georgia', serif;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #1a1a1a;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+            margin: 10px 0;
+            line-height: 1;
+            border-top: 2px solid #1a1a1a;
+            border-bottom: 2px solid #1a1a1a;
+            display: inline-block;
+            padding: 10px 40px;
+        }
+
+        .slogan-jornal {
+            font-style: italic;
+            font-size: 0.9rem;
+            color: #555;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 8px;
+        }
+
+        .linha-fina {
+            border-top: 1px solid #999;
+            border-bottom: 1px solid #999;
+            padding: 8px 0;
+            margin: 15px 0 0;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            color: #444;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .linha-fina span {
+            white-space: nowrap;
+        }
+
+        .corpo-jornal {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2px;
+            background: #999;
+            border-top: 1px solid #999;
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (min-width: 768px) {
+            .corpo-jornal {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+
+        .materia-principal {
+            background: var(--jornal-bg);
+            padding: 25px 30px;
+        }
+
+        .materia-principal .editoria {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--destaque);
+            font-weight: bold;
+            margin-bottom: 5px;
+            border-bottom: 1px solid var(--destaque);
+            display: inline-block;
+            padding-bottom: 3px;
+        }
+
+        .materia-principal h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            line-height: 1.2;
+            margin: 15px 0;
+            color: #1a1a1a;
+            font-weight: bold;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .materia-principal .subtitulo-materia {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: #444;
+            font-style: italic;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ccc;
+            line-height: 1.5;
+        }
+
+        .materia-principal .assinatura {
+            font-weight: bold;
+            font-size: 0.85rem;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .materia-principal p {
+            margin-bottom: 15px;
+            text-align: justify;
+            font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+            text-indent: 2em;
+            color: #222;
+        }
+
+        .materia-principal p:first-of-type {
+            text-indent: 0;
+        }
+
+        .materia-principal p:first-of-type::first-letter {
+            font-size: 3.5em;
+            float: left;
+            line-height: 0.8;
+            padding-right: 8px;
+            padding-top: 5px;
+            color: #1a1a1a;
+            font-weight: bold;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .secao-contos {
+            text-align: center;
+            margin: 30px auto;
+            padding: 25px 15px;
+            border-top: 3px double #2c2c2c;
+            border-bottom: 3px double #2c2c2c;
+            max-width: 900px;
+        }
+
+        .secao-contos h3 {
+            font-size: 1.4rem;
+            color: #8b0000;
+            margin-bottom: 8px;
+            font-family: 'Times New Roman', serif;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .secao-contos .instrucao {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .contos-grade-jornal {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            max-width: 750px;
+            margin: 0 auto;
+            padding: 0;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .conto-item-jornal {
+            background: #faf8f2;
+            padding: 16px 14px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #1a3a5c;
+            font-style: italic;
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-color: #8b0000;
+            text-decoration-thickness: 1px;
+            border: 2px solid #ddd;
+            border-radius: 3px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 70px;
+        }
+
+        .conto-item-jornal:hover {
+            background: #f0e0c0;
+            border-color: #8b0000;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            z-index: 10;
+            text-decoration: none;
+            color: #8b0000;
+            font-weight: bold;
+        }
+
+        .conto-item-jornal::before {
+            content: '📰 ';
+            font-style: normal;
+            font-size: 0.7rem;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .conto-item-jornal:hover::before {
+            content: '📖 ';
+        }
+
+        .conto-item-jornal::after {
+            content: '(clique para ler)';
+            display: block;
+            font-size: 0.6rem;
+            font-style: normal;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        .conto-item-jornal:hover::after {
+            color: #8b0000;
+            font-weight: bold;
+        }
+
+        .coluna-lateral {
+            background: var(--jornal-bg);
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .noticia-lateral {
+            background: #faf8f2;
+            padding: 20px 25px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .noticia-lateral:last-child {
+            border-bottom: none;
+        }
+
+        .noticia-lateral .editoria {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--destaque);
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+
+        .noticia-lateral h2 {
+            font-size: clamp(1.2rem, 2vw, 1.5rem);
+            color: #1a1a1a;
+            margin: 8px 0;
+            line-height: 1.3;
+            font-family: 'Times New Roman', serif;
+            font-weight: bold;
+        }
+
+        .noticia-lateral h3 {
+            font-size: 1rem;
+            color: #333;
+            margin: 10px 0;
+            font-weight: bold;
+            border-left: 3px solid #8b0000;
+            padding-left: 10px;
+        }
+
+        .noticia-lateral p {
+            font-size: 0.88rem;
+            color: #333;
+            text-align: justify;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .foto-autora-container {
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .foto-autora {
+            width: 100%;
+            max-width: 200px;
+            height: auto;
+            border: 3px solid #8b0000;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            filter: sepia(30%);
+        }
+
+        .legenda-foto {
+            font-size: 0.7rem;
+            color: #777;
+            font-style: italic;
+            margin-top: 5px;
+        }
+
+        .imagem-premiacao {
+            width: 100%;
+            max-width: 80px;
+            height: auto;
+            margin: 10px auto;
+            display: block;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        .premiacao-item {
+            padding: 8px 10px;
+            margin: 4px 0;
+            background: #faf8f2;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+            border-left: 3px solid transparent;
+        }
+
+        .premiacao-item:hover {
+            background: #f0e8d8;
+            border-left-color: #8b0000;
+            padding-left: 15px;
+        }
+
+        .premiacao-item strong {
+            color: #1a3a5c;
+        }
+
+        .box-destaque {
+            border: 2px solid #8b0000;
+            padding: 15px 20px;
+            margin: 20px 0;
+            background: #fefcf7;
+            text-align: center;
+            font-style: italic;
+            color: #1a1a1a;
+            position: relative;
+        }
+
+        .box-destaque p {
+            text-indent: 0;
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .box-destaque::before,
+        .box-destaque::after {
+            content: '❝';
+            font-size: 2rem;
+            color: #8b0000;
+            position: absolute;
+            line-height: 0;
+        }
+
+        .box-destaque::before {
+            top: 15px;
+            left: 10px;
+        }
+
+        .box-destaque::after {
+            content: '❞';
+            bottom: 5px;
+            right: 10px;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-conteudo {
+            background: #faf8f2;
+            max-width: 700px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            border-radius: 4px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            border: 4px double #2c2c2c;
+            position: relative;
+            animation: slideIn 0.4s ease;
+            font-family: 'Georgia', 'Times New Roman', serif;
+        }
+
+        .modal-header {
+            background: #f4f1ea;
+            border-bottom: 2px solid #2c2c2c;
+            padding: 20px 25px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .modal-header h2 {
+            font-family: 'Times New Roman', serif;
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            color: #1a1a1a;
+            margin: 0;
+            flex: 1;
+            line-height: 1.3;
+        }
+
+        .modal-header .editoria-modal {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #8b0000;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .modal-imagem-premiacao {
+            width: 100%;
+            max-width: 120px;
+            height: auto;
+            margin: 15px auto;
+            display: block;
+            border: 2px solid #8b0000;
+            border-radius: 4px;
+        }
+
+        .btn-fechar {
+            background: #8b0000;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: all 0.3s;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .btn-fechar:hover {
+            background: #5c0000;
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 25px;
+        }
+
+        .modal-body p {
+            text-align: justify;
+            margin-bottom: 15px;
+            line-height: 1.8;
+            color: #222;
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
+            text-indent: 2em;
+        }
+
+        .modal-body p:first-of-type {
+            text-indent: 0;
+        }
+
+        .info-adicional {
+            background: #f4f1ea;
+            border-left: 3px solid #8b0000;
+            padding: 12px 18px;
+            margin: 15px 0;
+            font-size: 0.9rem;
+            color: #555;
+            font-style: italic;
+        }
+
+        .info-adicional strong {
+            color: #8b0000;
+            font-style: normal;
+        }
+
+        .modal-rodape {
+            border-top: 1px solid #ccc;
+            padding: 15px 25px;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #777;
+            font-style: italic;
+        }
+
+        .rodape-jornal {
+            border-top: 4px double #2c2c2c;
+            padding: 20px 30px;
+            background: #faf8f2;
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            font-size: 0.8rem;
+            color: #555;
+        }
+
+        .rodape-jornal div {
+            text-align: center;
+        }
+
+        .rodape-jornal h5 {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #8b0000;
+            margin-bottom: 8px;
+        }
+
+        .rodape-jornal p {
+            margin: 3px 0;
+        }
+
+        @media (max-width: 767px) {
+            .jornal {
+                margin: 0;
+                border: none;
+                box-shadow: none;
+            }
+
+            .cabecalho-jornal {
+                padding: 15px 15px 10px;
+            }
+
+            .cabecalho-topo {
+                font-size: 0.65rem;
+                gap: 5px;
+                justify-content: center;
+            }
+
+            .data-edicao, .numero-edicao {
+                padding: 2px 8px;
+                font-size: 0.7rem;
+            }
+
+            .nome-jornal {
+                font-size: 2rem;
+                padding: 8px 20px;
+                letter-spacing: 1px;
+            }
+
+            .linha-fina {
+                font-size: 0.65rem;
+                gap: 10px;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .materia-principal,
+            .noticia-lateral {
+                padding: 15px 18px;
+            }
+
+            .materia-principal h1 {
+                font-size: 1.6rem;
+            }
+
+            .contos-grade-jornal {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+                max-width: 100%;
+            }
+
+            .conto-item-jornal {
+                font-size: 0.75rem;
+                padding: 12px 8px;
+                min-height: 60px;
+            }
+
+            .secao-contos {
+                padding: 15px 8px;
+                margin: 20px auto;
+                max-width: 100%;
+            }
+
+            .secao-contos h3 {
+                font-size: 1.1rem;
+                letter-spacing: 1px;
+            }
+
+            .foto-autora {
+                max-width: 150px;
+            }
+
+            .modal-conteudo {
+                max-height: 90vh;
+            }
+
+            .modal-header {
+                padding: 15px;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .modal-body {
+                padding: 15px;
+            }
+
+            .btn-fechar {
+                width: 35px;
+                height: 35px;
+                font-size: 1.2rem;
+                align-self: flex-end;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .contos-grade-jornal {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+                max-width: 650px;
+            }
+
+            .conto-item-jornal {
+                font-size: 0.8rem;
+                padding: 14px 10px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .nome-jornal {
+                font-size: 1.5rem;
+            }
+
+            .contos-grade-jornal {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 6px;
+            }
+
+            .conto-item-jornal {
+                font-size: 0.68rem;
+                padding: 10px 5px;
+                min-height: 55px;
+            }
+
+            .conto-item-jornal::after {
+                font-size: 0.55rem;
+            }
+
+            .secao-contos h3 {
+                font-size: 1rem;
+            }
+
+            .secao-contos .instrucao {
+                font-size: 0.7rem;
+            }
+        }
+
+        .modal-conteudo::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-conteudo::-webkit-scrollbar-track {
+            background: #f4f1ea;
+        }
+
+        .modal-conteudo::-webkit-scrollbar-thumb {
+            background: #8b0000;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="jornal">
+        
+        <header class="cabecalho-jornal">
+            <div class="cabecalho-topo">
+                <span class="data-edicao">EDIÇÃO ESPECIAL • 2026</span>
+                <span style="font-weight: bold;">LITERATURA BRASILEIRA</span>
+                <span class="numero-edicao">Nº 1 • ANO 2026</span>
+            </div>
+
+            <h1 class="nome-jornal">Projeto Literário</h1>
+            <p class="slogan-jornal">Cultura • Letras • Artes — Desde 2026</p>
+
+            <div class="linha-fina">
+                <span>★ EDIÇÃO DE COLEÇÃO ★</span>
+                <span>LYGIA FAGUNDES TELLES</span>
+                <span>★ PRÊMIO CAMÕES 2005 ★</span>
+            </div>
+        </header>
+
+        <div class="corpo-jornal">
+            
+            <article class="materia-principal">
+                <span class="editoria">Resenha Literária</span>
+                <h1>"Invenção e Memória": A alquimia narrativa de Lygia Fagundes Telles</h1>
+                <p class="subtitulo-materia">Coletânea de 15 contos publicada em 2000 revela maestria na fusão entre lembrança e imaginação, consolidando autora como patrimônio da literatura em língua portuguesa</p>
+                <p class="assinatura">Por C.A. Cronista Literário — Do Caderno de Cultura</p>
+
+                <p>Publicado originalmente no ano 2000 pela Companhia das Letras, <strong>"Invenção e Memória"</strong> representa um dos momentos mais luminosos da carreira de Lygia Fagundes Telles, que à época já contava com mais de seis décadas de produção literária. A obra, vencedora do Prêmio Jabuti em 2001 na categoria Contos e Crônicas, reúne 15 narrativas que funcionam como um laboratório onde a memória é submetida ao filtro da criação artística.</p>
+
+                <p>O título não é meramente descritivo: é um manifesto poético. Lygia propõe que <strong>toda memória já é, em si, uma invenção</strong> — e que toda invenção literária se alimenta, inevitavelmente, das camadas sedimentadas da experiência vivida. Em cada um dos contos, o leitor é convidado a habitar essa zona de penumbra onde o acontecido e o imaginado se confundem, território que a autora domina como poucos na literatura brasileira.</p>
+
+                <div class="box-destaque">
+                    <p>"Nestas histórias, a memória não é apenas lembrança — é matéria-prima para a invenção. O real e o imaginário se fundem em páginas onde o passado se torna presente pela força da escrita."</p>
+                </div>
+
+                <p>A estrutura da obra impressiona pela <strong>unidade na diversidade</strong>. Embora cada conto tenha vida própria — com personagens, cenários e atmosferas distintas —, todos compartilham um fio condutor: a investigação sobre como o tempo transforma as pessoas e como a narrativa pode resgatar, ainda que de forma imperfeita, aquilo que se perdeu.</p>
+
+                <p>O estilo de Lygia é reconhecível já nas primeiras linhas: <strong>prosa econômica, precisa, sem excessos</strong>. Cada palavra parece ter sido escolhida a dedo. Não há espaço para o supérfluo. As descrições são sensoriais — cheiros, texturas, luzes e sombras ganham protagonismo — e os diálogos carregam subtextos que exigem do leitor atenção redobrada.</p>
+
+                <div class="secao-contos">
+                    <h3>★ OS 15 CONTOS DA OBRA ★</h3>
+                    <p class="instrucao">Clique em qualquer título para ler o resumo do conto</p>
+                    
+                    <div class="contos-grade-jornal" id="contosContainer">
+                    </div>
+                </div>
+
+                <p>Um dos aspectos mais notáveis de "Invenção e Memória" é a forma como a autora incorpora elementos do <strong>realismo fantástico de maneira sutil</strong>, sem alardes. O insólito não chega como estrondo, mas como uma brisa que desarruma silenciosamente a realidade. Uma presença inexplicável, um objeto que evoca memórias alheias, um encontro que desafia a lógica temporal — tudo isso aparece com naturalidade, como se o extraordinário fosse parte indissociável do ordinário.</p>
+
+                <p>A temática que perpassa toda a coletânea pode ser resumida em cinco eixos principais: a <strong>memória afetiva</strong> como gatilho narrativo, a <strong>solidão</strong> que potencializa encontros transformadores, a <strong>irrupção do insólito</strong> no cenário mais banal, a <strong>passagem do tempo</strong> como agente de mudança irreversível, e a <strong>escrita</strong> como ato de resistência contra o esquecimento. Lygia não oferece respostas fáceis, mas formula perguntas que permanecem ecoando depois que o livro é fechado.</p>
+
+                <p style="font-style: italic; text-align: right; color: #555; text-indent: 0; margin-top: 20px;">
+                    "Escrevo para me lembrar. E também para esquecer. Porque só se esquece quando se transforma a lembrança em linguagem." — Lygia Fagundes Telles
+                </p>
+            </article>
+
+            <aside class="coluna-lateral">
+                
+                <div class="noticia-lateral">
+                    <span class="editoria">Perfil Completo</span>
+                    <h2>Lygia Fagundes Telles: A dama da literatura brasileira</h2>
+                    
+                    <div class="foto-autora-container"></div>
+                        <img 
+                            src="autora.jpg"
+                            alt="Lygia Fagundes Telles"
+                            class="foto-autora"
+                        >
+                        
+                        <p class="legenda-foto">Lygia Fagundes Telles (1918–2022)<br>Acervo pessoal / Academia Brasileira de Letras</p>
+                    </div>
+
+                    <p><strong>Lygia Fagundes Telles</strong> nasceu em São Paulo, no dia 19 de abril de 1918, filha do advogado e político Durval de Azevedo Fagundes e da pianista Maria do Rosário Silva Fagundes. Desde muito cedo demonstrou inclinação para as letras, escrevendo seus primeiros contos ainda na adolescência.</p>
+                    
+                    <p>Cursou o primário em várias cidades do interior paulista, acompanhando as mudanças da família. Estudou no Instituto de Educação Caetano de Campos e, posteriormente, ingressou na Faculdade de Direito do Largo de São Francisco (USP), onde se formou em 1941. Durante os anos de faculdade, frequentou o meio intelectual paulistano, convivendo com escritores como Mário de Andrade e Oswald de Andrade.</p>
+                    
+                    <p>Sua estreia literária aconteceu em 1938, aos 19 anos, com o livro de contos <strong>"Porão e Sobrado"</strong>, publicado com recursos do próprio pai. A partir daí, construiu uma carreira sólida e longeva que atravessaria oito décadas.</p>
+                    
+                    <p>Em 1947, casou-se com o jurista e escritor Gofredo da Silva Teles Júnior, com quem teve um filho, Gofredo da Silva Teles Neto. O casamento durou até a morte do marido em 2009. Lygia também teve um relacionamento anterior com o crítico literário Paulo Emílio Salles Gomes.</p>
+                    
+                    <p>Em 1982, tornou-se a quarta ocupante da <strong>Cadeira 16 da Academia Brasileira de Letras</strong>, sendo a terceira mulher a ingressar na instituição. Sua posse foi um marco na história da ABL.</p>
+                    
+                    <p>Ao longo da vida, Lygia militou ativamente pela democracia e pelos direitos humanos. Durante a ditadura militar brasileira, teve obras censuradas e posicionou-se publicamente contra o regime. Em 2015, recebeu a <strong>Medalha da Resistência</strong> por sua atuação política.</p>
+                    
+                    <p>Faleceu em 3 de abril de 2022, em São Paulo, poucos dias antes de completar 104 anos, deixando um legado literário incomensurável que inclui romances, contos, crônicas e traduções para mais de 15 idiomas.</p>
+                </div>
+
+                <div class="noticia-lateral">
+                    <span class="editoria">Bibliografia Essencial</span>
+                    <h2>Obras que marcaram época</h2>
+                    <h3>Romances:</h3>
+                    <p>• <strong>Ciranda de Pedra</strong> (1954) — Romance de formação que aborda a descoberta da sexualidade e os conflitos familiares.</p>
+                    <p>• <strong>Verão no Aquário</strong> (1963) — Narrativa intimista sobre a relação entre mãe e filha.</p>
+                    <p>• <strong>As Meninas</strong> (1973) — Considerado sua obra-prima, retrata três jovens durante a ditadura militar. Vencedor do Prêmio Jabuti.</p>
+                    <p>• <strong>As Horas Nuas</strong> (1989) — Romance sobre envelhecimento, memória e a condição da mulher.</p>
+                    <h3>Contos (principais coletâneas):</h3>
+                    <p>• Antes do Baile Verde (1970)</p>
+                    <p>• Seminário dos Ratos (1977)</p>
+                    <p>• A Estrutura da Bolha de Sabão (1991)</p>
+                    <p>• Invenção e Memória (2000)</p>
+                </div>
+
+                <div class="noticia-lateral">
+                    <span class="editoria">Reconhecimento</span>
+                    <h2>Prêmios e Conquistas</h2>
+                    <p style="font-size:0.75rem; color:#888; font-style:italic;">Clique em cada prêmio para saber mais</p>
+                    
+                    <div id="premiacoesContainer">
+                    </div>
+                </div>
+
+                <div class="noticia-lateral">
+                    <span class="editoria">Análise Literária</span>
+                    <h2>O estilo inconfundível de Lygia</h2>
+                    
+                    <p>A escrita de Lygia Fagundes Telles ocupa um lugar único na literatura brasileira. Diferente de outros autores de sua geração, ela desenvolveu uma <strong>voz narrativa que combina lirismo e precisão cirúrgica</strong>, resultando em textos que são ao mesmo tempo poéticos e contundentes.</p>
+                    
+                    <h3>Principais características:</h3>
+                    <p><strong>1. Introspecção psicológica:</strong> Lygia é mestre em mergulhar na psique de suas personagens, especialmente mulheres. Seus narradores frequentemente acessam pensamentos, angústias e desejos que geralmente permanecem ocultos na superfície social. Esse mergulho interior revela as contradições humanas com honestidade brutal.</p>
+                    
+                    <p><strong>2. Realismo fantástico sutil:</strong> Ao contrário de autores que utilizam o fantástico de forma explícita, Lygia insere o elemento insólito com naturalidade quase imperceptível. Uma presença inexplicável, um objeto que desaparece, uma coincidência impossível — tudo surge como parte do cotidiano, sem necessidade de explicação.</p>
+                    
+                    <p><strong>3. Engajamento social:</strong> Sua obra jamais foi alienada das questões de seu tempo. Crítica à hipocrisia burguesa, à opressão de gênero, à violência do Estado e às desigualdades sociais são temas recorrentes, tratados com elegância e contundência.</p>
+                    
+                    <p><strong>4. Memória como matéria-prima:</strong> A memória não é apenas tema, é método. Lygia entende que recordar é sempre um ato criativo, e essa compreensão permeia toda sua obra. O passado em seus textos nunca é estático.</p>
+                    
+                    <p><strong>5. Linguagem precisa:</strong> Influenciada por Virginia Woolf e Machado de Assis, Lygia desenvolveu uma prosa enxuta, onde cada palavra é essencial. Não há espaço para ornamentos vazios. A contenção vocabular potencializa o significado.</p>
+                    
+                    <p><strong>6. Personagens femininas complexas:</strong> Lygia foi pioneira em criar protagonistas femininas multifacetadas, que fogem aos estereótipos. Suas mulheres são contraditórias, falhas, fortes e frágeis simultaneamente — humanas em sua totalidade.</p>
+                    
+                    <p style="font-style: italic; text-align: center; margin-top: 15px; color: #555;">"Não escrevo para ser compreendida. Escrevo para compreender."</p>
+                </div>
+            </aside>
+        </div>
+
+        <footer class="rodape-jornal">
+            <div>
+                <h5>Projeto Literário</h5>
+                <p>Edição Especial • Literatura Brasileira</p>
+                <p>Ano 2026 • Nº 1</p>
+            </div>
+            <div>
+                <h5>Projeto</h5>
+                <p>Jornal Literário</p>
+                <p>Para: Prof: Taiza</p>
+            </div>
+            <div>
+                <h5>Sobre esta edição</h5>
+                <p>Dedicada à obra de Lygia Fagundes Telles</p>
+                <p>"Invenção e Memória"</p>
+            </div>
+            <div>
+                <h5>Grupo</h5>
+                <p>Lorena Nunes Ribeiro</p>
+                <p>Pedro Henrique Silva de Souza</p>
+            </div>
+        </footer>
+    </div>
+
+    <div id="modalOverlay" class="modal-overlay" style="display: none;" onclick="fecharModal(event)">
+        <div class="modal-conteudo" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <div>
+                    <span class="editoria-modal" id="modalEditoria">📖 Conteúdo</span>
+                    <h2 id="modalTitulo"></h2>
+                </div>
+                <button class="btn-fechar" onclick="fecharModal()" title="Fechar">✕</button>
+            </div>
+            <div class="modal-body" id="modalCorpo">
+            </div>
+            <div class="modal-rodape">
+                Fonte: Obra de Lygia Fagundes Telles — Fins educacionais
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const contos = [
+            {
+                titulo: "A Chave na Porta",
+                resumo: `<p>O conto narra o reencontro de uma mulher com seu passado ao retornar à antiga casa de família. Ao girar a chave na porta, memórias há muito adormecidas vêm à tona, revelando segredos e emoções que ela julgava superados. A narrativa explora como objetos cotidianos podem funcionar como portais para lembranças profundas, e como o ato de recordar é também um ato de recriar o que foi vivido. Lygia tece uma trama onde passado e presente se confundem, deixando no ar a pergunta: até que ponto nossas memórias são fiéis ao que realmente aconteceu?</p>
+                <div class="info-adicional"><strong>Tema central:</strong> A memória despertada por objetos e espaços físicos; o reencontro com o passado.</div>`
+            },
+            {
+                titulo: "Natal na Barca",
+                resumo: `<p>Em uma barca que atravessa um rio na noite de Natal, passageiros desconhecidos compartilham um momento de intimidade forçada. Entre eles, uma mulher carrega uma dor silenciosa. O conto constrói, com maestria, uma atmosfera de suspense e revelação, onde a escuridão da noite e o movimento das águas funcionam como metáforas para os abismos da alma humana. Lygia mostra como encontros aparentemente casuais podem desencadear epifanias transformadoras.</p>
+                <div class="info-adicional"><strong>Tema central:</strong> Solidão, encontros fortuitos e epifania em meio à travessia simbólica.</div>`
+            },
+            {
+                titulo: "A Mão no Ombro",
+                resumo: `<p>Um homem sente, repetidamente, uma mão pousar em seu ombro — mas ao se virar, não há ninguém. O conto mergulha no universo do insólito com naturalidade, característica marcante de Lygia. A presença invisível se torna cada vez mais insistente, levando o protagonista a questionar sua sanidade e a natureza da realidade. A narrativa sugere que talvez essa mão seja uma manifestação de culpas não resolvidas ou de afetos que se recusam a partir.</p>
+                <div class="info-adicional"><strong>Tema central:</strong> O insólito cotidiano, culpa e manifestações do inconsciente.</div>`
+            },
+            {
+                titulo: "O Encontro",
+                resumo: `<p>Duas pessoas se cruzam em uma estação de trem e, por um instante, reconhecem uma na outra algo profundamente familiar — como se já tivessem se conhecido em outra vida. O conto explora a ideia de que certos encontros são, na verdade, reencontros. Com sua prosa precisa, Lygia investiga os fios invisíveis que conectam os seres humanos através do tempo, sugerindo que a memória pode transcender a experiência individual.</p>
+                <div class="info-adicional"><strong>Tema central:</strong> Destino, conexões transcendentais e a sensação de déjà-vu como experiência literária.</div>`
+            },
+            {
+                titulo: "A Estrela Branca",
+                resumo: `<p>Uma estrela misteriosa aparece no céu e passa a influenciar a vida dos moradores de uma pequena cidade. O conto mistura lirismo e fantasia para falar sobre esperança, perda e a capacidade humana de buscar significado no desconhecido. A estrela funciona como um símbolo aberto a múltiplas interpretações — pode ser um milagre, uma ilusão coletiva ou simplesmente um fenômeno natural que a imaginação popular transforma em lenda.</p>
+                <div class="info-adicional"><strong>Tema central:</strong> Fé, imaginação coletiva e o confronto entre explicação racional e mistério.</div>`
+            },
+            {
+                titulo: "Papoulas em feltro negro",
+                resumo: `<p>Uma mulher confecciona flores artificiais — papoulas de feltro negro — enquanto revisita mentalmente sua história de amor e perda. O artesanato funciona como uma forma de meditação e de resistência contra o esquecimento. Cada flor que nasce de suas mãos carrega um pedaço de memória, transformando o objeto em relicário afetivo. Lygia aborda com delicadeza a relação entre criação manual e elaboração do luto.</p>
+                <div class="info-adicional"><strong>Tema central:</strong> Arte como terapia, luto, memória materializada em objetos.</div>`
+            },
+            {
+                titulo: "A Caçada",
+                resumo: `<p>Durante uma caçada, um homem se vê diante de uma situação que inverte os papéis de predador e presa. O conto tem uma atmosfera de suspense crescente e funciona como uma metáfora sobre poder, violência e vulnerabilidade. Lygia desconstrói a ideia de controle que o ser humano acredita ter sobre a natureza e sobre os outros, revelando como é tênue a linha que separa o caçador da caça.</p>
+                <div class="info-adicional"><strong>Tema central:</strong> Poder e vulnerabilidade; a inversão de papéis entre dominador e dominado.</div>`
+            },
+            {
+                titulo: "A Janela",
+                resumo: `<p>Através de uma janela, uma personagem observa o mundo exterior enquanto reflete sobre sua própria vida. O vidro se torna uma membrana entre o dentro e o fora, entre o eu e o outro. O conto é um estudo sobre o isolamento e a contemplação, mostrando como o ato de observar pode ser uma forma de participar do mundo sem se expor a ele. Lygia transforma um gesto banal em profunda meditação existencial.</p>
+                <div class="info-adicional"><strong>Tema central:</strong> Isolamento, voyeurismo existencial, fronteiras entre mundo interno e externo.</div>`
+            },
+            {
+                titulo: "O Menino",
+                resumo: `<p>A aparição de um menino enigmático transforma a rotina de uma comunidade. A criança, que parece saber mais do que revela, funciona como um catalisador de segredos e tensões latentes. O conto tem um quê de realismo mágico, onde o menino pode ser interpretado como um anjo, um fantasma ou simplesmente uma criança comum que desperta o extraordinário nas pessoas ao redor.</p>
+                <div class="info-adicional"><strong>Tema central:</strong> Inocência e mistério; a criança como figura que desestabiliza o mundo adulto.</div>`
+            },
+            {
+                titulo: "Anão de Jardim",
+                resumo: `<p>Um anão de jardim, objeto kitsch e aparentemente banal, torna-se o centro de uma narrativa surpreendente sobre afeto, abandono e a relação entre pessoas e coisas. Lygia subverte a expectativa do leitor ao transformar um item decorativo em símbolo de memórias profundas. O conto revela como objetos aparentemente insignificantes podem carregar histórias de amor, perda e redenção.</p>
+                <div class="info-adicional"><strong>Tema central:</strong> Objetos como repositórios de memória; o afeto pelos coisas e suas histórias ocultas.</div>`
+            },
+            {
+                titulo: "A Presença",
+                resumo: `<p>Uma presença inexplicável passa a habitar uma casa, perturbando seus moradores de maneiras sutis. Não se trata de um conto de terror tradicional, mas de uma investigação sobre como o desconhecido pode se infiltrar na vida cotidiana. Lygia mantém a ambiguidade até o final, permitindo que o leitor decida se a presença é sobrenatural ou uma projeção dos medos e desejos dos personagens.</p>
+                <div class="info-adicional"><strong>Tema central:</strong> O sobrenatural ambíguo; projeções psicológicas e o medo do invisível.</div>`
+            },
+            {
+                titulo: "Biruta",
+                resumo: `<p>O conto acompanha um personagem que vive à margem da sociedade, considerado "diferente" pelos padrões convencionais. Com sensibilidade, Lygia constrói um retrato da exclusão e da resistência silenciosa daqueles que não se encaixam. A biruta do título remete à ideia de mudança de direção, de instabilidade — mas também de sensibilidade para captar os ventos que os outros ignoram.</p>
+                <div class="info-adicional"><strong>Tema central:</strong> Marginalidade, diferença e a sabedoria dos que vivem à margem.</div>`
+            },
+            {
+                titulo: "O Noivo",
+                resumo: `<p>Às vésperas do casamento, uma mulher é assaltada por dúvidas e memórias que colocam em xeque sua decisão. O conto mergulha na psicologia feminina com maestria, explorando as pressões sociais sobre as mulheres e o difícil equilíbrio entre desejo individual e expectativas coletivas. Lygia trata do tema do matrimônio não como instituição, mas como encruzilhada existencial.</p>
+                <div class="info-adicional"><strong>Tema central:</strong> Casamento como crise; autonomia feminina e pressões sociais.</div>`
+            },
+            {
+                titulo: "A Sauna",
+                resumo: `<p>Em uma sauna, corpos expostos e suados compartilham um espaço de vulnerabilidade física que se transforma em território de confissões e revelações. O ambiente fechado e o calor intenso funcionam como catalisadores para que verdades venham à tona. Lygia utiliza o cenário inusitado para falar sobre máscaras sociais, intimidade e o que revelamos quando nos despimos — literal e metaforicamente.</p>
+                <div class="info-adicional"><strong>Tema central:</strong> Vulnerabilidade, confissão e a nudez como metáfora da verdade.</div>`
+            },
+            {
+                titulo: "Invenção e Memória",
+                resumo: `<p>O conto que dá título à coletânea é uma reflexão metalinguística sobre o próprio ato de escrever. Uma escritora reflete sobre como suas memórias se transformam em matéria literária, e como a narrativa é sempre uma construção — nunca um espelho fiel do passado. É o conto mais autorreferencial da obra, onde Lygia expõe os bastidores de seu processo criativo e convida o leitor a pensar sobre os limites entre o vivido e o narrado. Um encerramento perfeito para a coletânea, que ilumina todos os outros contos que o precedem.</p>
+                <div class="info-adicional"><strong>Tema central:</strong> Metalinguagem, o fazer literário e a fronteira entre realidade e ficção.</div>`
+            }
+        ];
+
+        const premiacoes = [
+            {
+                nome: "Prêmio Jabuti",
+                detalhe: "Múltiplas premiações",
+                imagem: "",
+                resumo: `<p>O <strong>Prêmio Jabuti</strong>, criado em 1958 pela Câmara Brasileira do Livro, é a mais tradicional premiação literária do Brasil. Lygia Fagundes Telles foi agraciada diversas vezes ao longo de sua carreira, incluindo em 2001 por <strong>"Invenção e Memória"</strong> na categoria Contos e Crônicas. O reconhecimento constante pelo Jabuti atesta a qualidade consistente de sua produção literária ao longo de décadas.</p>`
+            },
+            {
+                nome: "Prêmio Camões",
+                detalhe: "Maior honraria da língua portuguesa — 2005",
+                imagem: "",
+                resumo: `<p>O <strong>Prêmio Camões</strong>, instituído em 1988 por Brasil e Portugal, é considerado o Nobel da língua portuguesa. Lygia recebeu o prêmio em 2005, tornando-se a quarta brasileira agraciada. O júri destacou "a rara capacidade de fixar, em sua obra, a alma feminina em suas múltiplas dimensões". O prêmio consagrou internacionalmente uma carreira já celebrada no Brasil.</p>`
+            },
+            {
+                nome: "Academia Brasileira de Letras",
+                detalhe: "Cadeira 16 — Eleita em 1982",
+                imagem: "",
+                resumo: `<p>A <strong>Academia Brasileira de Letras</strong>, fundada em 1897, é a mais importante instituição literária do país. Lygia foi eleita em 1982 para a Cadeira 16, sendo a terceira mulher a ingressar na ABL. Sua posse representou um marco na abertura da instituição à participação feminina, e durante mais de 40 anos foi uma das acadêmicas mais atuantes.</p>`
+            },
+            {
+                nome: "Indicação ao Nobel de Literatura",
+                detalhe: "Primeira brasileira indicada",
+                imagem: "",
+                resumo: `<p>Lygia Fagundes Telles foi a <strong>primeira mulher brasileira indicada ao Prêmio Nobel de Literatura</strong>, um marco histórico. Embora não tenha vencido, a indicação representou o reconhecimento internacional de sua contribuição à literatura mundial e abriu portas para que outros autores brasileiros fossem considerados pela Academia Sueca.</p>`
+            },
+            {
+                nome: "Prêmio APCA",
+                detalhe: "Associação Paulista de Críticos de Arte",
+                imagem: "",
+                resumo: `<p>O <strong>Prêmio APCA</strong>, concedido pela Associação Paulista de Críticos de Arte desde 1972, reconhece anualmente os destaques da cultura brasileira. Lygia foi premiada em múltiplas categorias ao longo de sua carreira, confirmando o respeito da crítica especializada por sua obra.</p>`
+            },
+            {
+                nome: "Medalha da Resistência",
+                detalhe: "Concedida em 2015",
+                imagem: "",
+                resumo: `<p>A <strong>Medalha da Resistência</strong> é uma condecoração do governo brasileiro que homenageia pessoas que lutaram contra a ditadura militar (1964-1985). Lygia recebeu a medalha em 2015 por sua atuação corajosa durante o regime, quando teve obras censuradas e posicionou-se publicamente em defesa da democracia e dos direitos humanos.</p>`
+            },
+            {
+                nome: "Prêmio Juca Pato",
+                detalhe: "Intelectual do Ano — 2008",
+                imagem: "",
+                resumo: `<p>O <strong>Prêmio Juca Pato</strong>, criado em 1962 pela União Brasileira de Escritores, homenageia anualmente o "Intelectual do Ano". Lygia recebeu o prêmio em 2008, sendo reconhecida não apenas por sua produção literária, mas por sua contribuição ao pensamento e à cultura brasileira como um todo.</p>`
+            }
+        ];
+
+        function gerarContos() {
+            const container = document.getElementById('contosContainer');
+            container.innerHTML = '';
+
+            contos.forEach((conto, index) => {
+                const div = document.createElement('div');
+                div.className = 'conto-item-jornal';
+                div.textContent = conto.titulo;
+                div.setAttribute('data-index', index);
+                div.setAttribute('title', 'Clique para ler o resumo de: ' + conto.titulo);
+                div.setAttribute('role', 'button');
+                div.setAttribute('tabindex', '0');
+                
+                div.addEventListener('click', () => abrirModalConto(index));
+                
+                div.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        abrirModalConto(index);
+                    }
+                });
+
+                container.appendChild(div);
+            });
+        }
+
+        function gerarPremiacoes() {
+            const container = document.getElementById('premiacoesContainer');
+            container.innerHTML = '';
+
+            premiacoes.forEach((premio, index) => {
+                const div = document.createElement('div');
+                div.className = 'premiacao-item';
+                
+                let conteudoHTML = `<strong>${premio.nome}</strong> — ${premio.detalhe}`;
+                
+                if (premio.imagem && premio.imagem.trim() !== '') {
+                    conteudoHTML += `<br><img src="${premio.imagem}" alt="${premio.nome}" class="imagem-premiacao">`;
+                }
+                
+                div.innerHTML = conteudoHTML;
+                div.setAttribute('title', 'Clique para saber mais sobre: ' + premio.nome);
+                div.setAttribute('role', 'button');
+                div.setAttribute('tabindex', '0');
+                div.style.cursor = 'pointer';
+                
+                div.addEventListener('click', () => abrirModalPremiacao(index));
+                
+                div.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        abrirModalPremiacao(index);
+                    }
+                });
+
+                container.appendChild(div);
+            });
+        }
+
+        function abrirModalConto(index) {
+            const conto = contos[index];
+            const overlay = document.getElementById('modalOverlay');
+            const editoria = document.getElementById('modalEditoria');
+            const titulo = document.getElementById('modalTitulo');
+            const corpo = document.getElementById('modalCorpo');
+
+            editoria.textContent = '📖 Resumo do Conto';
+            titulo.textContent = conto.titulo;
+            corpo.innerHTML = conto.resumo;
+
+            overlay.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+
+            const modalConteudo = overlay.querySelector('.modal-conteudo');
+            modalConteudo.scrollTop = 0;
+
+            setTimeout(() => {
+                const btnFechar = overlay.querySelector('.btn-fechar');
+                if (btnFechar) btnFechar.focus();
+            }, 100);
+        }
+
+        function abrirModalPremiacao(index) {
+            const premio = premiacoes[index];
+            const overlay = document.getElementById('modalOverlay');
+            const editoria = document.getElementById('modalEditoria');
+            const titulo = document.getElementById('modalTitulo');
+            const corpo = document.getElementById('modalCorpo');
+
+            editoria.textContent = '🏆 Informações sobre a Premiação';
+            titulo.textContent = premio.nome;
+            
+            let conteudo = premio.resumo;
+            
+            if (premio.imagem && premio.imagem.trim() !== '') {
+                conteudo += `<img src="${premio.imagem}" alt="${premio.nome}" class="modal-imagem-premiacao">`;
+            }
+            
+            conteudo += `<div class="info-adicional"><strong>Detalhe:</strong> ${premio.detalhe}</div>`;
+            
+            corpo.innerHTML = conteudo;
+
+            overlay.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+
+            const modalConteudo = overlay.querySelector('.modal-conteudo');
+            modalConteudo.scrollTop = 0;
+
+            setTimeout(() => {
+                const btnFechar = overlay.querySelector('.btn-fechar');
+                if (btnFechar) btnFechar.focus();
+            }, 100);
+        }
+
+        function fecharModal(event) {
+            if (event && event.target !== document.getElementById('modalOverlay')) {
+                return;
+            }
+
+            const overlay = document.getElementById('modalOverlay');
+            overlay.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const overlay = document.getElementById('modalOverlay');
+                if (overlay.style.display === 'flex') {
+                    fecharModal();
+                }
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            gerarContos();
+            gerarPremiacoes();
+        });
+    </script>
+</body>
+</html>
+
